@@ -6,6 +6,8 @@ before celery 4.5 released, and then you can remove this package import
 More about: https://github.com/celery/celery/pull/5755
 """
 
+from functools import wraps
+
 
 def taskcls(self, *args, **opts):
     """Class decarator to create a task class from
@@ -51,6 +53,17 @@ def taskcls(self, *args, **opts):
             # Custom
             task = app.tasks['custom_name']
             task.delay(...)
+
+    Default task options can be passed by inner class `Meta`:
+        .. code-block:: python
+
+            class BaseTask:
+                class Meta:
+                    bind = True
+
+                @classmethod
+                def task(cls, *args, **kwargs):
+                    ...
     """
 
     def inner_taskcls(cls):
@@ -62,7 +75,17 @@ def taskcls(self, *args, **opts):
 
         original_cls_task = cls.task
 
-        @self.task(**opts)
+        if hasattr(cls, 'Meta'):
+            task_opts = {
+                key: value
+                for key, value in cls.Meta.__dict__.items()
+                if not key.startswith('__')
+            }
+            task_opts.update(opts)
+        else:
+            task_opts = opts
+
+        @self.task(**task_opts)
         @wraps(original_cls_task)
         def taskcls_task(*task_args, **task_kwargs):
             return original_cls_task(*task_args, **task_kwargs)
