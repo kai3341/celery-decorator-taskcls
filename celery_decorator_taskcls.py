@@ -54,11 +54,11 @@ def taskcls(self, *args, **opts):
             task = app.tasks['custom_name']
             task.delay(...)
 
-    Default task options can be passed by inner class `Meta`:
+    Default task options can be passed by inner class `MetaTask`:
         .. code-block:: python
 
             class BaseTask:
-                class Meta:
+                class MetaTask:
                     bind = True
 
                 @classmethod
@@ -75,10 +75,10 @@ def taskcls(self, *args, **opts):
 
         original_cls_task = cls.task
 
-        if hasattr(cls, 'Meta'):
+        if hasattr(cls, 'MetaTask'):
             task_opts = {
                 key: value
-                for key, value in cls.Meta.__dict__.items()
+                for key, value in cls.MetaTask.__dict__.items()
                 if not key.startswith('__')
             }
             task_opts.update(opts)
