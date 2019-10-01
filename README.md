@@ -42,11 +42,11 @@ class SimpleTask(BaseTask):
 `app.taskcls` decorator behavior is the same as `app.task`. You can pass it
 kwargs like `bind`, `name` or other or you can use it without kwargs
 
-You can also pass default decorator options by nested class `Meta`:
+You can also pass default decorator options by nested class `MetaTask`:
 
 ```
 class BaseTask:
-    class Meta:
+    class MetaTask:
         bind = True
 
     @classmethod
