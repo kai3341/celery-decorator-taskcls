@@ -76,9 +76,10 @@ def taskcls(self, *args, **opts):
         original_cls_task = cls.task
 
         if hasattr(cls, 'MetaTask'):
+            meta_instance = cls.MetaTask()
             task_opts = {
-                key: value
-                for key, value in cls.MetaTask.__dict__.items()
+                key: getattr(meta_instance, key)
+                for key in dir(meta_instance)
                 if not key.startswith('__')
             }
             task_opts.update(opts)

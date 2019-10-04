@@ -1,5 +1,8 @@
 # Changelog
 
+## [0.1.3]
+- Fix MetaTask inheritance
+
 ## [0.1.2]
 - Update Readme
 
