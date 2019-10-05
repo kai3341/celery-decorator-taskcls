@@ -3,6 +3,8 @@ Celery Decorator taskcls
 
 * Free software: MIT License
 
+![Logo](https://repository-images.githubusercontent.com/211560565/deb2e780-e774-11e9-8582-033f0d6eab0d)
+
 This package is temporary way to get `app.taskcls` decorator right now.
 The main target of this package make you able to use taskcls decorator
 before celery 4.5 released, and then you can remove this package import
