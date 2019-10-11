@@ -67,14 +67,23 @@ def taskcls(self, *args, **opts):
     """
 
     def inner_taskcls(cls):
+        # Workaround: task name can not be generated automatically
         if 'name' not in opts:
             opts['name'] = self.gen_task_name(
                 cls.__name__,
                 cls.__module__,
             )
 
+        # Feature: allow to inherit taskcls from another taskcls
         original_cls_task = cls.task
+        original_cls_task_class = original_cls_task.__class__
+        
+        if issubclass(original_cls_task_class, self.Task):
+            original_cls_task = cls.__task__
+        else:
+            cls.__task__ = classmethod(original_cls_task.__func__)
 
+        # Feature: nested MetaTask class support
         if hasattr(cls, 'MetaTask'):
             meta_instance = cls.MetaTask()
             task_opts = {
@@ -86,6 +95,7 @@ def taskcls(self, *args, **opts):
         else:
             task_opts = opts
 
+        # Core taskcls implementation
         @self.task(**task_opts)
         @wraps(original_cls_task)
         def taskcls_task(*task_args, **task_kwargs):
@@ -94,6 +104,7 @@ def taskcls(self, *args, **opts):
         cls.task = taskcls_task
         return cls
 
+    # Feature: allow to use taskcls decorator without kwargs
     if len(args) == 0:
         return inner_taskcls
 

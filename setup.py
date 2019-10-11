@@ -37,6 +37,6 @@ setup(
     name='celery-decorator-taskcls',
     py_modules=['celery_decorator_taskcls'],
     url='https://github.com/kai3341/celery-decorator-taskcls',
-    version='0.1.3',
+    version='0.1.4',
     zip_safe=True,
 )
