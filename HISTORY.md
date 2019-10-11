@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.1.4]
+- Allow to inherit taskcls from another taskcls
+- Comment code blocks to simplify its understanding
+
 ## [0.1.3]
 - Fix MetaTask inheritance
 
