@@ -1,6 +1,12 @@
 Celery Decorator taskcls
 ===============
 
+![python](https://img.shields.io/pypi/pyversions/celery-decorator-taskcls.svg)
+![version](https://img.shields.io/pypi/v/celery-decorator-taskcls.svg)
+![downloads](https://img.shields.io/pypi/dm/celery-decorator-taskcls.svg)
+![format](https://img.shields.io/pypi/format/celery-decorator-taskcls.svg)
+
+
 * Free software: MIT License
 
 ![Logo](https://repository-images.githubusercontent.com/211560565/deb2e780-e774-11e9-8582-033f0d6eab0d)
